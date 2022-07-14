@@ -1,4 +1,4 @@
-function demo(fruit, weightInGrams, moneyCost) {
+function buyingFruit(fruit, weightInGrams, moneyCost) {
   let weight = weightInGrams / 1000;
   let money = weight * moneyCost;
 
@@ -9,5 +9,5 @@ function demo(fruit, weightInGrams, moneyCost) {
   );
 }
 
-demo(`orange`, 2500, 1.8);
+buyingFruit(`orange`, 2500, 1.8);
 //Expected : I need $4.50 to buy 2.50 kilograms orange.
