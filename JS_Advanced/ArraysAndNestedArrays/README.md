@@ -11,4 +11,5 @@
 <p>The output is the return value of your function and must be an array.</p>
 <h3>Examples</h3>
 
-![Screenshot_1](c:/Users/Santush/Desktop/Screenshot_2.jpg)
+![Screenshot_2](https://user-images.githubusercontent.com/73018624/179389325-5c3a90ed-a75b-460a-8059-be75c992c6c3.jpg)
+
