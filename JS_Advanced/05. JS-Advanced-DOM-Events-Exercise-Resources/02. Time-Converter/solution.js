@@ -1,4 +1,9 @@
 function attachEventsListeners() {
+  let btn = Array.from(document.querySelectorAll("input[type=button]"));
 
-    console.log('TODO:...');
+  for (let button of btn) {
+    button.addEventListener("click", calc);
+  }
+
+  function calc(e) {}
 }
