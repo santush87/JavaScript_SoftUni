@@ -9,6 +9,10 @@ function solve() {
   let fuel = document.getElementById("fuel");
   let originalCost = document.getElementById("original-cost");
   let sellingPrice = document.getElementById("selling-price");
+  let carList = document.getElementById("cars-list");
+  let theProfit = document.getElementById("profit");
+
+  let totalProfit = 0;
 
   let tbody = document.getElementById("table-body");
 
@@ -58,6 +62,7 @@ function solve() {
     let btnSell = document.createElement("button");
     btnSell.classList.add("action-btn", "sell");
     btnSell.textContent = "Sell";
+    btnSell.addEventListener("click", sellMode);
 
     td7.appendChild(btnEdit);
     td7.appendChild(btnSell);
@@ -90,7 +95,33 @@ function solve() {
     originalCost.value = elem[4].textContent;
     sellingPrice.value = elem[5].textContent;
 
-    let toRemove = document.getElementsByClassName("row")[0];
     e.target.parentNode.parentNode.remove();
+  }
+
+  function sellMode(e) {
+    let elem = e.target.parentNode.parentNode.querySelectorAll("td");
+
+    let li = document.createElement("li");
+    li.classList.add("each-list");
+
+    let span1 = document.createElement("span");
+    span1.textContent = elem[0].textContent + " " + elem[1].textContent;
+
+    let span2 = document.createElement("span");
+    span2.textContent = elem[2].textContent;
+
+    let span3 = document.createElement("span");
+    span3.textContent =
+      Number(elem[5].textContent) - Number(elem[4].textContent);
+
+    totalProfit += Number(span3.textContent);
+
+    carList.appendChild(li);
+    li.appendChild(span1);
+    li.appendChild(span2);
+    li.appendChild(span3);
+
+    e.target.parentNode.parentNode.remove();
+    theProfit.textContent = `${totalProfit.toFixed(2)}`;
   }
 }
