@@ -32,4 +32,18 @@ describe("E2E tests", async function () {
     expect(content).to.contain("Unix");
     expect(content).to.contain("ALGOL");
   });
+
+  it("has Working More button", async () => {
+    await page.goto("http://127.0.0.1:5500/JS_APPLICATIONS/11.%20Architecture%20and%20Testing/01.%20Accordion/");
+
+    await page.click("text=More");
+
+    await page.waitForSelector(".extra p");
+
+    const text = await page.textContent(".extra p");
+    const visible = await page.isVisible(".extra p");
+
+    expect(text).to.contain("Scalable Vector Graphics (SVG)");
+    expect(visible).to.be.true;
+  });
 });
