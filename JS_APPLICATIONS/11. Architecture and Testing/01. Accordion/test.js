@@ -27,9 +27,9 @@ describe("E2E tests", async function () {
 
     const content = await page.textContent("#main");
 
-    expect(content).to.contain(`Scalable Vector Graphics`);
-    expect(content).to.contain(`Open standart`);
-    expect(content).to.contain(`Unix`);
-    expect(content).to.contain(`ALGOL`);
+    expect(content).to.contain("Scalable Vector Graphics");
+    expect(content).to.contain("Open standard");
+    expect(content).to.contain("Unix");
+    expect(content).to.contain("ALGOL");
   });
 });
