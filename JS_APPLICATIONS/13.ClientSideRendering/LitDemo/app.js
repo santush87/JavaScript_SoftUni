@@ -10,7 +10,12 @@ import { html, render } from "https://unpkg.com/lit-html?module";
 // render(createP("Martin"), document.querySelector("nav"));
 // render(createP("World"), document.querySelector("main"));
 
-const p = (name) => html`<p>Hello, ${name}!</p>`;
+// const p = (name) => html`<p>Hello, ${name}!</p>`;
 
-render(p("Martin"), document.querySelector("nav"));
-render(p("World"), document.querySelector("main"));
+// render(p("Martin"), document.querySelector("nav"));
+// render(p("World"), document.querySelector("main"));
+
+const timer = (time) => html`<p>The time is ${time}!</p>`;
+const root = document.querySelector("main");
+
+render(timer(new Date()), root);
