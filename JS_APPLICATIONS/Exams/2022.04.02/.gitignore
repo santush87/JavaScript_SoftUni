@@ -1,0 +1,7 @@
+node_modules
+server
+image
+*.png
+package-lock.json
+package.json
+*.jpg
