@@ -8,33 +8,31 @@ import { registerPage } from "./views/register.js";
 import { logout } from "./data/auth.js";
 import { catalogPage } from "./views/catalog.js";
 
-
-// TODO change render root depending on project HTML structure
 const root = document.getElementById("wrapper");
 
-page(decorateContext)
-page('index.html', '/');
-page('/', homePage);``
-page('/catalog', catalogPage);
-page('/login', loginPage);
-page('/register', registerPage);
-page('/logout', logoutAction);
+page(decorateContext);
+page("index.html", "/");
+page("/", homePage);
+``;
+page("/catalog", catalogPage);
+page("/login", loginPage);
+page("/register", registerPage);
+page("/logout", logoutAction);
 
 page.start();
 
-function decorateContext(ctx, next){
-    ctx.render = renderView;
+function decorateContext(ctx, next) {
+  ctx.render = renderView;
 
-    next();
+  next();
 }
 
-// TODO Inject dependencies
-function renderView(context){
-    const userData = getUserData();
-    render(layoutTemplate(userData, context), root)
+function renderView(context) {
+  const userData = getUserData();
+  render(layoutTemplate(userData, context), root);
 }
 
-function logoutAction(ctx){
-    logout();
-    ctx.page.redirect('/');
+function logoutAction(ctx) {
+  logout();
+  ctx.page.redirect("/");
 }

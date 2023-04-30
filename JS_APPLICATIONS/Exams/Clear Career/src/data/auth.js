@@ -1,5 +1,3 @@
-// TODO Change user object according to project requirements
-
 import { setUserData, clearUserData } from "../util.js";
 import { get, post } from "./api.js";
 
