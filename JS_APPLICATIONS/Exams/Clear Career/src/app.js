@@ -7,6 +7,7 @@ import { loginPage } from "./views/login.js";
 import { registerPage } from "./views/register.js";
 import { logout } from "./data/auth.js";
 import { catalogPage } from "./views/catalog.js";
+import { detailsPage } from "./views/details.js";
 
 const root = document.getElementById("wrapper");
 
@@ -15,6 +16,7 @@ page("index.html", "/");
 page("/", homePage);
 ``;
 page("/catalog", catalogPage);
+page("/catalog/:id", detailsPage);
 page("/login", loginPage);
 page("/register", registerPage);
 page("/logout", logoutAction);
