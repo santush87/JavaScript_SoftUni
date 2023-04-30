@@ -40,7 +40,7 @@ export function registerPage(ctx) {
       return alert("All fields are required");
     }
     if (password != repass) {
-      return alert("Passwords don't match");
+      return alert("Passwords don\'t match");
     }
 
     await register(email, password);
