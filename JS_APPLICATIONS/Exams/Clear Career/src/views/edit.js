@@ -1,6 +1,5 @@
 import { html } from "../../node_modules/lit-html/lit-html.js";
-import { getById } from "../data/offers.js";
-// import { createOffer } from "../data/offers.js";
+import { getById, updateOffer } from "../data/offers.js";
 import { createSubmitHandler } from "../util.js";
 
 const editTemplate = (offer, onEdit) => html`
@@ -75,7 +74,6 @@ export async function editPage(ctx) {
     salary,
   }) {
     console.log("Submitted");
-    /*
     if (
       [title, imageUrl, category, description, requirements, salary].some(
         (field) => field == ""
@@ -84,7 +82,7 @@ export async function editPage(ctx) {
       return alert("All fields are required!");
     }
 
-    await createOffer({
+    await updateOffer(id, {
       title,
       imageUrl,
       category,
@@ -93,7 +91,6 @@ export async function editPage(ctx) {
       salary,
     });
 
-    ctx.page.redirect("/catalog");
-    */
+    ctx.page.redirect("/catalog/" + id);
   }
 }
