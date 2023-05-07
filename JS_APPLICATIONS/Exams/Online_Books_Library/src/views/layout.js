@@ -26,5 +26,8 @@ export const layoutTemplate = (userData, content) => html`
       </section>
     </nav>
   </header>
-  <main>${content}</main>
+  <main id="site-content">${content}</main>
+  <footer id="site-footer">
+    <p>@OnlineBooksLibrary</p>
+  </footer>
 `;
