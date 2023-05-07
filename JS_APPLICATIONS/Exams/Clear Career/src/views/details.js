@@ -1,5 +1,9 @@
 import { html } from "../../node_modules/lit-html/lit-html.js";
-import { apply, getApplications, getUserApplication } from "../data/applications.js";
+import {
+  apply,
+  getApplications,
+  getUserApplication,
+} from "../data/applications.js";
 import { deleteOffer, getById } from "../data/offers.js";
 import { getUserData } from "../util.js";
 
@@ -42,7 +46,12 @@ const detailsTemplate = (offer, onDelete, onApply) => html`
                   >`
               : null}
             ${offer.canApply
-              ? html` <a href="" id="apply-btn">Apply</a>`
+              ? html` <a
+                  @click=${onApply}
+                  href="javascript:void(0)"
+                  id="apply-btn"
+                  >Apply</a
+                >`
               : null}
           </div>`
         : null}
@@ -69,7 +78,10 @@ export async function detailsPage(ctx) {
     offer.canApply = offer.canEdit == false && hasApplied == 0;
   }
 
-  ctx.render(detailsTemplate(offer, onDelete, onApply));
+  update();
+  function update() {
+    ctx.render(detailsTemplate(offer, onDelete, onApply));
+  }
 
   async function onDelete() {
     const choice = confirm("Are you sure?");
@@ -80,8 +92,11 @@ export async function detailsPage(ctx) {
     }
   }
 
-  async function onApply(){
+  async function onApply() {
     await apply(id);
-    ctx.page.redirect('/catalog/' + id);
+    offer.applications++;
+    offer.canApply = false;
+
+    update();
   }
 }
