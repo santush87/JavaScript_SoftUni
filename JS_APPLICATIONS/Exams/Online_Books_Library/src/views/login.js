@@ -2,7 +2,6 @@ import { html } from "../../node_modules/lit-html/lit-html.js";
 import { login } from "../data/auth.js";
 import { createSubmitHandler } from "../util.js";
 
-// TODO Replace with actual view
 const loginTemplate = (onLogin) => html`
   <section id="login-page" class="login">
     <form @submit=${onLogin} id="login-form" action="" method="">
