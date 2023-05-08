@@ -17,7 +17,6 @@ const homeTemplate = (books) => html`
 
 export async function homePage(ctx) {
   const books = await getAllBooks();
-  console.log(books);
 
   ctx.render(homeTemplate(books));
 }
