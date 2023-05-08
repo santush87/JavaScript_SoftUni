@@ -6,6 +6,7 @@ import { homePage } from "./views/home.js";
 import { loginPage } from "./views/login.js";
 import { registerPage } from "./views/register.js";
 import { logout } from "./data/auth.js";
+import { createPage } from "./views/create.js";
 
 const root = document.getElementById("container");
 
@@ -15,6 +16,7 @@ page('/', homePage);
 page('/login', loginPage);
 page('/register', registerPage);
 page('/logout', logoutAction);
+page('/create', createPage);
 
 page.start();
 
