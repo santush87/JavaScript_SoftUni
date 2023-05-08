@@ -11,7 +11,7 @@ const loginTemplate = (onLogin) => html`
           <label for="email">Email</label>
           <span class="input">
             <input type="text" name="email" id="email" placeholder="Email" />
-          </span>
+          </span> 
         </p>
         <p class="field">
           <label for="password">Password</label>
