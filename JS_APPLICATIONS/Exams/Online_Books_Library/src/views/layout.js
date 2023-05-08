@@ -18,8 +18,8 @@ export const layoutTemplate = (userData, content) => html`
               <!-- Logged-in users -->
               <div id="user">
                 <span>Welcome, ${userData.email}</span>
-                <a class="button" href="#">My Books</a>
-                <a class="button" href="#">Add Book</a>
+                <a class="button" href="/my-book">My Books</a>
+                <a class="button" href="/create">Add Book</a>
                 <a class="button" href="/logout">Logout</a>
               </div>
             `}
