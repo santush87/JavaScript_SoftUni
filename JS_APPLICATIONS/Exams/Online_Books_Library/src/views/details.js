@@ -18,7 +18,7 @@ const detailsTemplate = (
 ) => html`
   <section id="details-page" class="details">
     <div class="book-information">
-      <h3>book.title</h3>
+      <h3>${book.title}</h3>
       <p class="type">Type: ${book.type}</p>
       <p class="img"><img src="${book.imageUrl}" /></p>
       <div class="actions">
