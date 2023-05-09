@@ -73,7 +73,7 @@ export async function detailsPage(ctx) {
   const userId = getUserData()?._id;
   const isOwner = book._ownerId === userId;
   const likes = await getLikesByBookId(bookId);
-  const myLikes = await getMyLikeBookId(bookId, userId);
+  const myLikes = userId && await getMyLikeBookId(bookId, userId);
   const showLikeButton = !isOwner && !myLikes && userId;
 
   ctx.render(
