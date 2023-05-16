@@ -4,9 +4,9 @@ import { setUserData, clearUserData } from "../util.js";
 import { get, post } from "./api.js";
 
 const endpoints = {
-  login: "/login",
-  register: "/register",
-  logout: "/logout",
+  login: "/users/login",
+  register: "/users/register",
+  logout: "/users/logout",
 };
 
 export async function getAll(){

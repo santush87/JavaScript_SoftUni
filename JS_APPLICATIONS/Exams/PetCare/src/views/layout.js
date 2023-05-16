@@ -13,7 +13,7 @@ export const layoutTemplate = (userData, content) => html`
       <li><a href="/">Home</a></li>
       <li><a href="/catalog">Dashboard</a></li>
 
-      ${!userData
+      ${userData
         ? html` <li><a href="/create">Create Postcard</a></li>
             <li><a href="javascript:void(0)">Logout</a></li>`
         : html`
