@@ -14,12 +14,12 @@ const root = document.getElementById("content");
 
 page(decorateContext)
 // page('index.html', '/');
-page('/catalog', showCatalog);
 page('/', homePage);
+page('/catalog', showCatalog);
+page('/catalog/:id', showDetails);
 page('/login', loginPage);
 page('/register', registerPage);
 page('/create', showCreate);
-page('/details', showDetails);
 page('/logout', logoutAction);
 
 page.start();
