@@ -6,15 +6,20 @@ import { homePage } from "./views/home.js";
 import { loginPage } from "./views/login.js";
 import { registerPage } from "./views/register.js";
 import { logout } from "./data/auth.js";
+import { showCatalog } from "./views/catalog.js";
+import { showCreate } from "./views/create.js";
+import { showDetails } from "./views/details.js";
 
-// TODO change render root depending on project HTML structure
-const root = document.body;
+const root = document.getElementById("content");
 
 page(decorateContext)
-page('index.html', '/');
+// page('index.html', '/');
+page('/catalog', showCatalog);
 page('/', homePage);
 page('/login', loginPage);
 page('/register', registerPage);
+page('/create', showCreate);
+page('/details', showDetails);
 page('/logout', logoutAction);
 
 page.start();
