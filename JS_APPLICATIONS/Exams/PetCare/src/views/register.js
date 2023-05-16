@@ -4,7 +4,7 @@ import { createSubmitHandler } from "../util.js";
 
 const registerTemplate = (onRegister) => html`
   <section id="registerPage">
-    <form class="registerForm">
+    <form @submit=${onRegister} class="registerForm">
       <img src="./images/logo.png" alt="logo" />
       <h2>Register</h2>
       <div class="on-dark">
@@ -52,8 +52,7 @@ const registerTemplate = (onRegister) => html`
 export function registerPage(ctx) {
   ctx.render(registerTemplate(createSubmitHandler(onRegister)));
 
-  // TODO change user object based on requirements
-  async function onRegister({ email, password, repass }, form) {
+  async function onRegister({ email, password, repeatPassword: repass }, form) {
     if (email == "" || password == "") {
       return alert("All fields are required");
     }
@@ -63,7 +62,6 @@ export function registerPage(ctx) {
 
     await register(email, password);
     form.reset();
-    // TODO use redirect location from requirements
     ctx.page.redirect("/");
   }
 }

@@ -1,7 +1,4 @@
 import { html } from "../../node_modules/lit-html/lit-html.js";
-import { getUserData } from "../util.js";
-
-// const userData = getUserData();
 
 export const layoutTemplate = (userData, content) => html`
   <nav>
@@ -22,6 +19,5 @@ export const layoutTemplate = (userData, content) => html`
     </ul>
   </nav>
 
-  <main>${content}</main>
-  <footer>Pet Care 2022©</footer>
+  <main>${content}</main> 
 `;
