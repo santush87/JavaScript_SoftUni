@@ -17,6 +17,7 @@ page(decorateContext)
 page('/', homePage);
 page('/catalog', showCatalog);
 page('/catalog/:id', showDetails);
+page('/edit/:id', showDetails);
 page('/login', loginPage);
 page('/register', registerPage);
 page('/create', showCreate);
@@ -30,7 +31,6 @@ function decorateContext(ctx, next){
     next();
 }
 
-// TODO Inject dependencies
 function renderView(context){
     const userData = getUserData();
     render(layoutTemplate(userData, context), root)
