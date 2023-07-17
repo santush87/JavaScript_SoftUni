@@ -7,7 +7,6 @@ import { updateNav } from "./views/nav.js";
 import { showRegister } from "./views/register.js";
 
 const main = document.getElementById("content");
-// document.getElementById("logoutBtn").addEventListener("click", onLogout);
 
 page(decorateContext);
 page("/", showHome);

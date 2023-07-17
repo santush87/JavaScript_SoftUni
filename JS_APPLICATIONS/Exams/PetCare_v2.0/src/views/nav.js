@@ -17,7 +17,7 @@ const navTemplate = (hasUser) => html` <nav>
           <li><a href="/register">Register</a></li>`
       : html` <li><a href="/create">Create Postcard</a></li>
           <li>
-            <a @click=${onLogout} id="logoutBtn" href="javascript:void(0)">Logout</a>
+            <a @click=${onLogout} href="javascript:void(0)">Logout</a>
           </li>`}
   </ul>
 </nav>`;
