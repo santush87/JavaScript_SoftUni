@@ -1,7 +1,7 @@
-import { getById } from "../api/data.js";
+import { deleteById, getById } from "../api/data.js";
 import { html, nothing } from "../lib.js";
 
-const detailsTemplate = (pet, hasUser, isOwner) => html` <section
+const detailsTemplate = (pet, hasUser, isOwner, onDelete) => html` <section
   id="detailsPage"
 >
   <div class="details">
@@ -20,7 +20,9 @@ const detailsTemplate = (pet, hasUser, isOwner) => html` <section
         ? html` <div class="actionBtn">
             ${isOwner
               ? html` <a href="/edit/${pet._id}" class="edit">Edit</a>
-                  <a href="javascript:void(0)" class="remove">Delete</a>`
+                  <a @click=${onDelete} href="javascript:void(0)" class="remove"
+                    >Delete</a
+                  >`
               : html`<a href="#" class="donate">Donate</a>`}
           </div>`
         : nothing}
@@ -35,5 +37,14 @@ export async function showDetails(ctx) {
   const hasUser = Boolean(ctx.user);
   const isOwner = hasUser && ctx.user._id == pet._ownerId;
 
-  ctx.render(detailsTemplate(pet, hasUser, isOwner));
+  ctx.render(detailsTemplate(pet, hasUser, isOwner, onDelete));
+
+  async function onDelete() {
+    const choice = confirm("Are you sure you want to delete this pet?");
+
+    if (choice) {
+      await deleteById(id);
+      ctx.page.redirect("/");
+    }
+  }
 }
