@@ -1,4 +1,3 @@
-import { logout } from "./api/user.js";
 import { page, render } from "./lib.js";
 import { showCatalog } from "./views/catalog.js";
 import { showHome } from "./views/home.js";
