@@ -3,6 +3,7 @@ import { page, render } from "./lib.js";
 import { showHome } from "./views/home.js";
 import { showLogin } from "./views/loginVeiw.js";
 import { updateNav } from "./views/nav.js";
+import { showRegister } from "./views/registerView.js";
 
 // Get main element for renderer
 const main = document.getElementById("main-content");
@@ -13,7 +14,7 @@ page(decorateContext);
 //Page routing
 page("/", showHome);
 page("/login", showLogin);
-page("/register", () => console.log("register"));
+page("/register", showRegister);
 page("/catalog", () => console.log("catalog"));
 page("/create", () => console.log("create"));
 page("/details/:id", () => console.log("details"));
