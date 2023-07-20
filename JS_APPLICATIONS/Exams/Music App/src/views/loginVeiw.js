@@ -1,6 +1,7 @@
 import { login } from "../api/user.js";
 import { createSubmitHandler } from "../api/util.js";
 import { html } from "../lib.js";
+import { updateNav } from "./nav.js";
 
 const loginTemp = (handelr) => html` <section id="loginPage">
   <form @submit=${handelr}>
@@ -43,6 +44,7 @@ export async function showLogin(ctx) {
     }
 
     await login(email, password);
+    ctx.updateNav();
     ctx.page.redirect("/");
   }
 }
