@@ -2,9 +2,9 @@ import { get, post } from "./api.js";
 import { clearUserData, setUserData } from "./util.js";
 
 const endpoint = {
-  login: "", //Add login endpoint!
-  register: "", //Add register endpoint!
-  logout: "", //Add logout endpoint!
+  login: "/users/login", //Add login endpoint!
+  register: "/users/register", //Add register endpoint!
+  logout: "/users/logout", //Add logout endpoint!
 };
 
 export async function login(email, password) {

@@ -1,6 +1,7 @@
 import { getUserData } from "./api/util.js";
 import { page, render } from "./lib.js";
 import { showHome } from "./views/home.js";
+import { showLogin } from "./views/loginVeiw.js";
 import { updateNav } from "./views/nav.js";
 
 // Get main element for renderer
@@ -11,12 +12,13 @@ page(decorateContext);
 
 //Page routing
 page("/", showHome);
-page("/catalog", () => console.log("catalog"));
-page("/catalog/:id", () => console.log("details"));
-page("/edit/:id", () => console.log("edit"));
-page("/create", () => console.log("create"));
-page("/login", () => console.log("login"));
+page("/login", showLogin);
 page("/register", () => console.log("register"));
+page("/catalog", () => console.log("catalog"));
+page("/create", () => console.log("create"));
+page("/details/:id", () => console.log("details"));
+page("/edit/:id", () => console.log("edit"));
+page("/search", () => console.log("search"));
 
 updateNav();
 page.start();
