@@ -1,3 +1,9 @@
 import { get, post, put, del } from "./api.js";
 
-// create application service
+const endpoints = {
+  albums: "/data/albums",
+};
+
+export async function createAlbum(data) {
+  return post(endpoints.albums, data);
+}
