@@ -1,5 +1,6 @@
 import { getUserData } from "./api/util.js";
 import { page, render } from "./lib.js";
+import { showCatalog } from "./views/catalogView.js";
 import { showCreate } from "./views/createView.js";
 import { showHome } from "./views/homeView.js";
 import { showLogin } from "./views/loginView.js";
@@ -17,7 +18,7 @@ page("/", showHome);
 page("/home", showHome);
 page("/login", showLogin);
 page("/register", showRegister);
-page("/catalog", () => console.log("catalog"));
+page("/catalog", showCatalog);
 page("/create", showCreate);
 page("/details/:id", () => console.log("details"));
 page("/edit/:id", () => console.log("edit"));
