@@ -13,6 +13,7 @@ page(decorateContext);
 
 //Page routing
 page("/", showHome);
+page("/home", showHome);
 page("/login", showLogin);
 page("/register", showRegister);
 page("/catalog", () => console.log("catalog"));
