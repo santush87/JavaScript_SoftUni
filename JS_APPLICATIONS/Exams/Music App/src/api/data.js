@@ -11,13 +11,17 @@ export async function createAlbum(data) {
 }
 
 export async function getAllAlbums() {
-    return get(endpoints.getAllAlbums);
+  return get(endpoints.getAllAlbums);
 }
 
 export async function getDetailsById(id) {
-    return get(endpoints.getAlbum + id);
+  return get(endpoints.getAlbum + id);
 }
 
 export async function deleteAlbumById(id) {
-    return del(endpoints.getAlbum + id);
+  return del(endpoints.getAlbum + id);
+}
+
+export async function updateAlbum(id, data) {
+  return put(endpoints.getAlbum + id, data);
 }
