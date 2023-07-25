@@ -2,6 +2,7 @@ import { getUserData } from "./api/util.js";
 import { page, render } from "./lib.js";
 import { showCatalog } from "./views/catalogView.js";
 import { showCreate } from "./views/createView.js";
+import { showDetails } from "./views/detailsView.js";
 import { showHome } from "./views/homeView.js";
 import { showLogin } from "./views/loginView.js";
 import { updateNav } from "./views/nav.js";
@@ -20,7 +21,7 @@ page("/login", showLogin);
 page("/register", showRegister);
 page("/catalog", showCatalog);
 page("/create", showCreate);
-page("/details/:id", () => console.log("details"));
+page("/details/:id", showDetails);
 page("/edit/:id", () => console.log("edit"));
 page("/search", () => console.log("search"));
 
