@@ -3,6 +3,7 @@ import { page, render } from "./lib.js";
 import { showCatalog } from "./views/catalogView.js";
 import { showCreate } from "./views/createView.js";
 import { showDetails } from "./views/detailsView.js";
+import { showEdit } from "./views/editView.js";
 import { showHome } from "./views/homeView.js";
 import { showLogin } from "./views/loginView.js";
 import { updateNav } from "./views/nav.js";
@@ -22,7 +23,7 @@ page("/register", showRegister);
 page("/catalog", showCatalog);
 page("/create", showCreate);
 page("/details/:id", showDetails);
-page("/edit/:id", () => console.log("edit"));
+page("/edit/:id", showEdit);
 page("/search", () => console.log("search"));
 
 updateNav();
