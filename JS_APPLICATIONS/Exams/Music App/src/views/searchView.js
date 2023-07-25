@@ -1,7 +1,9 @@
 import { searchAlbum } from "../api/data.js";
-import { html } from "../lib.js";
+import { html, nothing } from "../lib.js";
 
-const searchTemplate = (isClicked, handler) => html` <section id="searchPage">
+const searchTemplate = (isClicked, handler, albums, hasUser) => html` <section
+  id="searchPage"
+>
   <h1>Search by Name</h1>
 
   <div class="search">
@@ -15,29 +17,39 @@ const searchTemplate = (isClicked, handler) => html` <section id="searchPage">
   </div>
 
   <h2>Results:</h2>
-  ${
-    isClicked
-      ? html` <div class="search-result">
-          <div class="card-box">
-            <img src="./images/BrandiCarlile.png" />
-            <div>
-              <div class="text-center">
-                <p class="name">Name: In These Silent Days</p>
-                <p class="artist">Artist: Brandi Carlile</p>
-                <p class="genre">Genre: Low Country Sound Music</p>
-                <p class="price">Price: $12.80</p>
-                <p class="date">Release Date: October 1, 2021</p>
-              </div>
-              <div class="btn-group">
-                <a href="#" id="details">Details</a>
-              </div>
-            </div>
-          </div>
-        </div>`
+  ${isClicked
+    ? albums.length > 0
+      ? html`
+          <div class="search-result"></div>
+          ${albums.map((album) => createCard(album, hasUser))}
+        `
       : html`<p class="no-result">No result.</p>`
-  }
-  </div>
+    : nothing}
 </section>`;
+
+const createCard = (album, hasUser) =>
+  html` <div class="card-box">
+    <img src=${album.imgUrl} />
+    <div>
+      <div class="text-center">
+        <p class="name">Name: ${album.name}</p>
+        <p class="artist">Artist: ${album.artist}</p>
+        <p class="genre">Genre: ${album.genre}</p>
+        <p class="price">Price: $${album.price}</p>
+        <p class="date">Release Date: ${album.releaseDate}</p>
+      </div>
+      ${hasUser
+        ? html`
+        <div class="btn-group">
+          <a href="/details/${album._id}" id="details">Details</a>
+        </div>
+    </div>
+</div>`
+        : html`
+      </div>
+</div>`}
+    </div>
+  </div>`;
 
 export async function showSearch(ctx) {
   ctx.render(searchTemplate(false, onSearch));
@@ -49,8 +61,7 @@ export async function showSearch(ctx) {
     if (!query) {
       return alert("Enter text!");
     }
-    const album = await searchAlbum(query);
-    console.log(album);
-
+    const albums = await searchAlbum(query);
+    ctx.render(searchTemplate(true, onSearch, albums, !!ctx.user));
   }
 }
