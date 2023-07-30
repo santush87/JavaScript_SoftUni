@@ -6,6 +6,7 @@ import { homePage } from "./views/home.js";
 import { loginPage } from "./views/login.js";
 import { registerPage } from "./views/register.js";
 import { logout } from "./data/auth.js";
+import { catalogPage } from "./views/catalog.js";
 
 // TODO change render root depending on project HTML structure
 const root = document.body;
@@ -13,6 +14,7 @@ const root = document.body;
 page(decorateContext)
 page('index.html', '/');
 page('/', homePage);
+page('/catalog', catalogPage);
 page('/login', loginPage);
 page('/register', registerPage);
 page('/logout', logoutAction);
