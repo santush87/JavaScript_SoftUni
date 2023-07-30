@@ -26,7 +26,6 @@ function decorateContext(ctx, next){
     next();
 }
 
-// TODO Inject dependencies
 function renderView(context){
     const userData = getUserData();
     render(layoutTemplate(userData, context), root)
