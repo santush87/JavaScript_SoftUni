@@ -8,8 +8,7 @@ import { registerPage } from "./views/register.js";
 import { logout } from "./data/auth.js";
 import { catalogPage } from "./views/catalog.js";
 
-// TODO change render root depending on project HTML structure
-const root = document.body;
+const root = document.getElementById("wrapper");
 
 page(decorateContext)
 page('index.html', '/');
