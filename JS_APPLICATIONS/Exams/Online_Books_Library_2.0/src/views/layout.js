@@ -5,20 +5,20 @@ export const layoutTemplate = (userData, content) => html`
     <!-- Navigation -->
     <nav class="navbar">
       <section class="navbar-dashboard">
-        <a href="#">Dashboard</a>
+        <a href="/">Dashboard</a>
         ${!userData
           ? html`<div id="guest">
-              <a class="button" href="#">Login</a>
-              <a class="button" href="#">Register</a>
+              <a class="button" href="/login">Login</a>
+              <a class="button" href="/register">Register</a>
             </div>`
           : html`<div id="user">
-              <span>Welcome, {email}</span>
-              <a class="button" href="#">My Books</a>
-              <a class="button" href="#">Add Book</a>
-              <a class="button" href="#">Logout</a>
+              <span>Welcome, ${userData.email}</span>
+              <a class="button" href="/mybooks">My Books</a>
+              <a class="button" href="/addbook">Add Book</a>
+              <a class="button" href="javascript:void(0)">Logout</a>
             </div>`}
       </section>
     </nav>
   </header>
-  <main>${content}</main>
+  <main id="site-content">${content}</main>
 `;
