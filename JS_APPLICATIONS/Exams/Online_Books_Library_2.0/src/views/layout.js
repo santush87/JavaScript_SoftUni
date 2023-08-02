@@ -15,7 +15,7 @@ export const layoutTemplate = (userData, content) => html`
               <span>Welcome, ${userData.email}</span>
               <a class="button" href="/mybooks">My Books</a>
               <a class="button" href="/addbook">Add Book</a>
-              <a class="button" href="javascript:void(0)">Logout</a>
+              <a class="button" href="/logout">Logout</a>
             </div>`}
       </section>
     </nav>
