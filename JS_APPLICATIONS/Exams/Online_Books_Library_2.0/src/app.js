@@ -7,6 +7,7 @@ import { loginPage } from "./views/login.js";
 import { registerPage } from "./views/register.js";
 import { logout } from "./data/auth.js";
 import { createPage } from "./views/create.js";
+import { myBooksPage } from "./views/my-book.js";
 
 const root = document.getElementById("container");
 
@@ -14,6 +15,7 @@ page(decorateContext);
 page("index.html", "/");
 page("/", homePage);
 page("/create", createPage);
+page("/my-books", myBooksPage);
 page("/login", loginPage);
 page("/register", registerPage);
 page("/logout", logoutAction);
