@@ -13,8 +13,8 @@ export const layoutTemplate = (userData, content) => html`
             </div>`
           : html`<div id="user">
               <span>Welcome, ${userData.email}</span>
-              <a class="button" href="/mybooks">My Books</a>
-              <a class="button" href="/addbook">Add Book</a>
+              <a class="button" href="/my-books">My Books</a>
+              <a class="button" href="/create">Add Book</a>
               <a class="button" href="/logout">Logout</a>
             </div>`}
       </section>
