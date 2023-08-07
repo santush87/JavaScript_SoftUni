@@ -2,11 +2,11 @@ import { html } from "../../node_modules/lit-html/lit-html.js";
 import { editBook, getByBookId } from "../data/services.js";
 import { createSubmitHandler } from "../util.js";
 
-const editTemplate = (book, onEdit) => html` <section
+const editTemplate = (book, onSubmit) => html` <section
   id="edit-page"
   class="edit"
 >
-  <form @submit=${onEdit} id="edit-form" action="#" method="">
+  <form @submit=${onSubmit} id="edit-form" action="#" method="">
     <fieldset>
       <legend>Edit my Book</legend>
       <p class="field">
@@ -62,7 +62,7 @@ export async function editPage(ctx) {
       return alert("All fields are required");
     }
 
-    await editBook(id, data);
+    await editBook(id, { title, description, imageUrl, type });
     ctx.page.redirect(`/details/${id}`);
   }
 }
