@@ -15,7 +15,7 @@ export const layoutTemplate = (userData, content) => html`
       ${userData
         ? html`<div class="user">
             <a href="add-fact">Add Fact</a>
-            <a href="javascript:void(0)">Logout</a>
+            <a href="/logout">Logout</a>
           </div>`
         : html`<div class="guest">
             <a href="/login">Login</a>
