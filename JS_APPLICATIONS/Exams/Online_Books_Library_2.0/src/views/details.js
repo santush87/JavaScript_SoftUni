@@ -28,10 +28,8 @@ const detailsTemplate = (
             >`
         : nothing}
 
-      <!-- Bonus -->
-      <!-- Like button ( Only for logged-in users, which is not creators of the current book ) -->
       ${showLikeButton
-        ? html`<a @click=${onLike} class="button" href="#">Like</a>`
+        ? html`<a @click=${onLike} class="button" href="javascript:void(0)">Like</a>`
         : nothing}
 
       <!-- ( for Guests and Users )  -->
@@ -39,7 +37,6 @@ const detailsTemplate = (
         <img class="hearts" src="/images/heart.png" />
         <span id="total-likes">Likes: ${likes}</span>
       </div>
-      <!-- Bonus -->
     </div>
   </div>
   <div class="book-description">
