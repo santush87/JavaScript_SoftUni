@@ -1,91 +1,61 @@
-import { deleteById, getById } from "../api/data.js";
-import { donate, getDonations, getOwnDonation } from "../api/donations.js";
-import { html, nothing } from "../lib.js";
+import { html } from "../../node_modules/lit-html/lit-html.js";
 
-const detailsTemplate = (
-  pet,
-  donations,
-  hasUser,
-  canDonate,
-  isOwner,
-  onDelete,
-  onDonate
-) => html` <section id="detailsPage">
-  <div class="details">
-    <div class="animalPic">
-      <img src=${pet.image} />
-    </div>
-    <div>
-      <div class="animalInfo">
-        <h1>Name: ${pet.name}</h1>
-        <h3>Breed: ${pet.breed}</h3>
-        <h4>Age: ${pet.age}</h4>
-        <h4>Weight: ${pet.weight}</h4>
-        <h4 class="donation">Donation: ${donations}$</h4>
+const detailsTemplate = (onDelete) => html` <section
+  id="details-page"
+  class="details"
+>
+  <div class="book-information">
+    <h3>A Court of Thorns and Roses</h3>
+    <p class="type">Type: Fiction</p>
+    <p class="img"><img src="/images/book1.png" /></p>
+    <div class="actions">
+      <!-- Edit/Delete buttons ( Only for creator of this book )  -->
+      <a class="button" href="/edit">Edit</a>
+      <a @click=${onDelete} class="button" href="javascript:void(0)">Delete</a>
+
+      <!-- Bonus -->
+      <!-- Like button ( Only for logged-in users, which is not creators of the current book ) -->
+      <a class="button" href="#">Like</a>
+
+      <!-- ( for Guests and Users )  -->
+      <div class="likes">
+        <img class="hearts" src="/images/heart.png" />
+        <span id="total-likes">Likes: 0</span>
       </div>
-      ${petControls(pet, hasUser, canDonate, isOwner, onDelete, onDonate)}
+      <!-- Bonus -->
     </div>
+  </div>
+  <div class="book-description">
+    <h3>Description:</h3>
+    <p>
+      Feyre's survival rests upon her ability to hunt and kill – the forest
+      where she lives is a cold, bleak place in the long winter months. So when
+      she spots a deer in the forest being pursued by a wolf, she cannot resist
+      fighting it for the flesh. But to do so, she must kill the predator and
+      killing something so precious comes at a price ...
+    </p>
   </div>
 </section>`;
 
-function petControls(pet, hasUser, canDonate, isOwner, onDelete, onDonate) {
-  if (hasUser == false) {
-    return nothing;
-  }
-
-  if (canDonate) {
-    return html` <div class="actionBtn">
-      <a @click=${onDonate} href="javascript:void(0)" class="donate">Donate</a>
-    </div>`;
-  }
-
-  if (isOwner) {
-    return html` <div class="actionBtn">
-      <a href="/edit/${pet._id}" class="edit">Edit</a>
-      <a @click=${onDelete} href="javascript:void(0)" class="remove">Delete</a>
-    </div>`;
-  }
-}
-
-export async function showDetails(ctx) {
+export async function detailsPage(ctx) {
   const id = ctx.params.id;
 
-  const request = [getById(id), getDonations(id)];
+  // const request = [getById(id), getDonations(id)];
 
-  const hasUser = Boolean(ctx.user);
+  // const hasUser = Boolean(ctx.user);
 
-  if (hasUser) {
-    request.push(getOwnDonation(id, ctx.user._id));
-  }
+  // if (hasUser) {
+  //   request.push(getOwnDonation(id, ctx.user._id));
+  // }
 
-  const [pet, donations, hasDonation] = await Promise.all(request);
-
-  const isOwner = hasUser && ctx.user._id == pet._ownerId;
-  const canDonate = !isOwner && hasDonation == 0;
-
-  ctx.render(
-    detailsTemplate(
-      pet,
-      donations * 100,
-      hasUser,
-      canDonate,
-      isOwner,
-      onDelete,
-      onDonate
-    )
-  );
+  ctx.render(detailsTemplate(onDelete));
 
   async function onDelete() {
-    const choice = confirm("Are you sure you want to delete this pet?");
+    const choice = confirm("Are you sure you want to delete this book?");
 
     if (choice) {
       await deleteById(id);
       ctx.page.redirect("/");
     }
-  }
-
-  async function onDonate() {
-    await donate(id);
-    ctx.page.redirect("/catalog/" + id);
   }
 }
