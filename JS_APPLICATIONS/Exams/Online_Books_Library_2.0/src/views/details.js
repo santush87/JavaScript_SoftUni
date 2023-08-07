@@ -1,21 +1,27 @@
-import { html } from "../../node_modules/lit-html/lit-html.js";
+import { html, nothing } from "../../node_modules/lit-html/lit-html.js";
+import { deleteByBookId, getByBookId } from "../data/services.js";
+import { getUserData } from "../util.js";
 
-const detailsTemplate = (onDelete) => html` <section
+const detailsTemplate = (book, isOwner, hasUser, onDelete) => html` <section
   id="details-page"
   class="details"
 >
   <div class="book-information">
-    <h3>A Court of Thorns and Roses</h3>
-    <p class="type">Type: Fiction</p>
-    <p class="img"><img src="/images/book1.png" /></p>
+    <h3>${book.title}</h3>
+    <p class="type">Type: ${book.type}</p>
+    <p class="img"><img src=${book.imageUrl} /></p>
     <div class="actions">
-      <!-- Edit/Delete buttons ( Only for creator of this book )  -->
-      <a class="button" href="/edit">Edit</a>
-      <a @click=${onDelete} class="button" href="javascript:void(0)">Delete</a>
+      ${isOwner
+        ? html`<a class="button" href="/edit">Edit</a>
+            <a @click=${onDelete} class="button" href="javascript:void(0)"
+              >Delete</a
+            >`
+        : nothing}
 
       <!-- Bonus -->
       <!-- Like button ( Only for logged-in users, which is not creators of the current book ) -->
-      <a class="button" href="#">Like</a>
+      ${hasUser && !isOwner ? html`<a class="button" href="#">Like</a>` : nothing}
+      
 
       <!-- ( for Guests and Users )  -->
       <div class="likes">
@@ -27,34 +33,25 @@ const detailsTemplate = (onDelete) => html` <section
   </div>
   <div class="book-description">
     <h3>Description:</h3>
-    <p>
-      Feyre's survival rests upon her ability to hunt and kill – the forest
-      where she lives is a cold, bleak place in the long winter months. So when
-      she spots a deer in the forest being pursued by a wolf, she cannot resist
-      fighting it for the flesh. But to do so, she must kill the predator and
-      killing something so precious comes at a price ...
-    </p>
+    <p>${book.description}</p>
   </div>
 </section>`;
 
 export async function detailsPage(ctx) {
-  const id = ctx.params.id;
+  const bookId = ctx.params.id;
+  const book = await getByBookId(bookId);
+  const hasUser = getUserData();
+  const userId = getUserData()?._id;
 
-  // const request = [getById(id), getDonations(id)];
+  const isOwner = book._ownerId === userId;
 
-  // const hasUser = Boolean(ctx.user);
-
-  // if (hasUser) {
-  //   request.push(getOwnDonation(id, ctx.user._id));
-  // }
-
-  ctx.render(detailsTemplate(onDelete));
+  ctx.render(detailsTemplate(book, isOwner, hasUser, onDelete));
 
   async function onDelete() {
     const choice = confirm("Are you sure you want to delete this book?");
 
     if (choice) {
-      await deleteById(id);
+      await deleteByBookId(bookId);
       ctx.page.redirect("/");
     }
   }
