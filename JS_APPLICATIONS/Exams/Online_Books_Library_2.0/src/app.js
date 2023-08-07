@@ -9,6 +9,7 @@ import { logout } from "./data/auth.js";
 import { createPage } from "./views/create.js";
 import { myBooksPage } from "./views/my-book.js";
 import { detailsPage } from "./views/details.js";
+import { editPage } from "./views/edit.js";
 
 const root = document.getElementById("container");
 
@@ -18,6 +19,7 @@ page("/", homePage);
 page("/create", createPage);
 page("/my-books", myBooksPage);
 page("/details/:id", detailsPage);
+page("/edit/:id", editPage);
 page("/login", loginPage);
 page("/register", registerPage);
 page("/logout", logoutAction);
@@ -30,7 +32,6 @@ function decorateContext(ctx, next) {
   next();
 }
 
-// TODO Inject dependencies
 function renderView(context) {
   const userData = getUserData();
   render(layoutTemplate(userData, context), root);
