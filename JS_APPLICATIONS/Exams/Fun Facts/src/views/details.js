@@ -1,91 +1,76 @@
-import { deleteById, getById } from "../api/data.js";
-import { donate, getDonations, getOwnDonation } from "../api/donations.js";
-import { html, nothing } from "../lib.js";
+import { html, nothing } from "../../node_modules/lit-html/lit-html.js";
+import {
+  deleteById,
+  getAllLikes,
+  getFactById,
+  getMyLikes,
+  likeFact,
+} from "../data/service.js";
+import { getUserData } from "../util.js";
 
 const detailsTemplate = (
-  pet,
-  donations,
-  hasUser,
-  canDonate,
+  fact,
   isOwner,
-  onDelete,
-  onDonate
-) => html` <section id="detailsPage">
-  <div class="details">
-    <div class="animalPic">
-      <img src=${pet.image} />
-    </div>
-    <div>
-      <div class="animalInfo">
-        <h1>Name: ${pet.name}</h1>
-        <h3>Breed: ${pet.breed}</h3>
-        <h4>Age: ${pet.age}</h4>
-        <h4>Weight: ${pet.weight}</h4>
-        <h4 class="donation">Donation: ${donations}$</h4>
+  showLikeButton,
+  likes,
+  onLike,
+  onDelete
+) => html` <section id="details">
+  <div id="details-wrapper">
+    <img id="details-img" src=${fact.imageUrl} alt="example1" />
+    <p id="details-category">${fact.category}</p>
+    <div id="info-wrapper">
+      <div id="details-description">
+        <p id="description">${fact.description}</p>
+        <p id="more-info">${fact.moreInfo}</p>
       </div>
-      ${petControls(pet, hasUser, canDonate, isOwner, onDelete, onDonate)}
+
+      <h3>Likes:<span id="likes">${likes}</span></h3>
+
+      <div id="action-buttons">
+        ${isOwner
+          ? html`<a href="" id="edit-btn">Edit</a>
+              <a @click=${onDelete} href="javascript:void(0)" id="delete-btn"
+                >Delete</a
+              >`
+          : nothing}
+        ${showLikeButton
+          ? html`<a @click=${onLike} href="javascript:void(0)" id="like-btn"
+              >Like</a
+            >`
+          : nothing}
+      </div>
     </div>
   </div>
 </section>`;
 
-function petControls(pet, hasUser, canDonate, isOwner, onDelete, onDonate) {
-  if (hasUser == false) {
-    return nothing;
-  }
+export async function detailsPage(ctx) {
+  const factId = ctx.params.id;
+  const fact = await getFactById(factId);
+  const userId = getUserData()?._id;
+  const likes = await getAllLikes(factId);
+  const myLikes = await getMyLikes(factId, userId);
+  const isOwner = userId == fact._ownerId;
 
-  if (canDonate) {
-    return html` <div class="actionBtn">
-      <a @click=${onDonate} href="javascript:void(0)" class="donate">Donate</a>
-    </div>`;
-  }
-
-  if (isOwner) {
-    return html` <div class="actionBtn">
-      <a href="/edit/${pet._id}" class="edit">Edit</a>
-      <a @click=${onDelete} href="javascript:void(0)" class="remove">Delete</a>
-    </div>`;
-  }
-}
-
-export async function showDetails(ctx) {
-  const id = ctx.params.id;
-
-  const request = [getById(id), getDonations(id)];
-
-  const hasUser = Boolean(ctx.user);
-
-  if (hasUser) {
-    request.push(getOwnDonation(id, ctx.user._id));
-  }
-
-  const [pet, donations, hasDonation] = await Promise.all(request);
-
-  const isOwner = hasUser && ctx.user._id == pet._ownerId;
-  const canDonate = !isOwner && hasDonation == 0;
+  const showLikeButton = !isOwner && myLikes == 0 && userId;
 
   ctx.render(
-    detailsTemplate(
-      pet,
-      donations * 100,
-      hasUser,
-      canDonate,
-      isOwner,
-      onDelete,
-      onDonate
-    )
+    detailsTemplate(fact, isOwner, showLikeButton, likes, onLike, onDelete)
   );
 
   async function onDelete() {
     const choice = confirm("Are you sure you want to delete this pet?");
 
     if (choice) {
-      await deleteById(id);
-      ctx.page.redirect("/");
+      await deleteById(factId);
+      ctx.page.redirect("/catalog");
     }
   }
 
-  async function onDonate() {
-    await donate(id);
-    ctx.page.redirect("/catalog/" + id);
+  async function onLike() {
+    await likeFact(factId);
+    likes++;
+    myLikes++;
+    ctx.page.redirect("/catalog/" + factId);
   }
 }

@@ -48,7 +48,6 @@ const detailsTemplate = (
 export async function detailsPage(ctx) {
   const bookId = ctx.params.id;
   const book = await getByBookId(bookId);
-  const hasUser = getUserData();
   const userId = getUserData()?._id;
   const likes = await getLikesByBookId(bookId);
   const myLikes = await getMyLikeBookId(bookId, userId);

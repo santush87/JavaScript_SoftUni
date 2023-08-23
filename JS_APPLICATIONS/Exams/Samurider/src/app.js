@@ -7,8 +7,10 @@ import { loginPage } from "./views/login.js";
 import { registerPage } from "./views/register.js";
 import { logout } from "./data/auth.js";
 import { catalogPage } from "./views/catalog.js";
-import { createPage } from "./views/create.js";
 import { detailsPage } from "./views/details.js";
+import { editPage } from "./views/edit.js";
+import { createPage } from "./views/create.js";
+import { searchPage } from "./views/search.js";
 
 const root = document.getElementById("wrapper");
 
@@ -16,8 +18,10 @@ page(decorateContext)
 page('index.html', '/');
 page('/', homePage);
 page('/catalog', catalogPage);
-page('/catalog/:id', detailsPage);
-page('/add-fact', createPage);
+page('/details/:id', detailsPage);
+page('/edit/:id', editPage);
+page('/create', createPage);
+page('/search', searchPage);
 page('/login', loginPage);
 page('/register', registerPage);
 page('/logout', logoutAction);

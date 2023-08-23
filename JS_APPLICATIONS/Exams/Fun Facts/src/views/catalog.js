@@ -14,7 +14,7 @@ const factTemplate = (fact) => html` <div class="fact">
   <img src=${fact.imageUrl} alt="example1" />
   <h3 class="category">${fact.category}</h3>
   <p class="description">${fact.description}</p>
-  <a class="details-btn" href="">More Info</a>
+  <a class="details-btn" href="/catalog/${fact._id}">More Info</a>
 </div>`;
 
 export async function catalogPage(ctx) {
